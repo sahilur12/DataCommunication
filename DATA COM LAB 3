@@ -1,0 +1,50 @@
+close all;
+clc;
+%Define number of samples to take
+fs = 8000; % Sampling frequency
+f = 400; %Hz
+%Define signal
+t = 0:1/fs:1-1/fs;
+A1=3;
+A2=5;
+powfund = A1^2/2
+s = 0.267;
+varnoise = s^2;
+signal = 4*sin(2*pi*8*100*t ) + 6*cos(2*pi*6*100*t);
+%noise
+noise = s*randn(size(signal));
+%noisy signal
+noisySignal = signal + noise;
+SNR = snr(noisySignal) %Calculation of SNR using snr function
+defSNR = 10*log10(powfund/varnoise) %Calculation of
+
+
+
+clc
+close all
+fs = 8000; % Sampling frequency
+f = 3; %Hz
+%Define signal
+t = 0:1/fs:1-1/fs;
+A1 = 3;
+A2= 5;
+s = 0.267;
+%signal
+x = A1*sin(2*pi*8*100*t ) + A2*cos(2*pi*6*100*t);
+%noise
+ns = s*randn(size(signal));
+S_N_R = snr(x,ns);
+bandwidth = obw(x,fs); % Bandwidth of the signal
+%capacity
+Capacity = bandwidth*log2(1+SNR) % Capacity of the channel
+
+
+close all;
+clc;
+fs = 8000; % Sampling frequency
+t = 0:1/fs:1-1/fs; % Time duration
+cx = A1*sin(2*pi*8*100*t) + A2*cos(2*pi*6*100*t);
+bandwidth = obw(cx,fs); % Bandwidth of the signal
+apprxDataRate=floor(bandwidth*log2(1+SNR))
+Level=floor(2^(apprxDataRate/(2*bandwidth)))
+BitRate = 2*bandwidth*log2(Level)
